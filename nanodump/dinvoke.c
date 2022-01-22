@@ -3,20 +3,7 @@
 
 typedef NTSTATUS(WINAPI* LdrLoadDll_t)(PWCHAR, ULONG, PUNICODE_STRING, PHANDLE);
 
-//DWORD SW2_HashSyscall(PCSTR FunctionName);
-//DWORD SW2_HashSyscall(PCSTR FunctionName)
-//{
-//	DWORD i = 0;
-//	DWORD Hash = SW2_SEED;
-//
-//	while (FunctionName[i])
-//	{
-//		WORD PartialName = *(WORD*)((ULONG64)FunctionName + i++);
-//		Hash ^= PartialName + SW2_ROR8(Hash);
-//	}
-//
-//	return Hash;
-//}
+DWORD SW2_HashSyscall(PCSTR FunctionName);
 
 BOOL is_dll(HMODULE hLibrary)
 {
